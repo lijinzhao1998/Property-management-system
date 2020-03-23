@@ -3,8 +3,10 @@ package com.softwarefirst.communitymannger.ssm.admin.mapper;
 import com.softwarefirst.communitymannger.ssm.admin.model.Notice;
 import com.softwarefirst.communitymannger.ssm.admin.model.NoticeExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface NoticeMapper {
     long countByExample(NoticeExample example);
 

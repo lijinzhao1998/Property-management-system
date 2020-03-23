@@ -1,13 +1,12 @@
-package com.softwarefirst.communitymannger.ssm.admin.mapper;
+package com.softwarefirst.communitymannger.ssm.admin.service;
 
 import com.softwarefirst.communitymannger.ssm.admin.model.Department;
 import com.softwarefirst.communitymannger.ssm.admin.model.DepartmentExample;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-@Mapper
-public interface DepartmentMapper {
+public interface DepartmentService {
     long countByExample(DepartmentExample example);
 
     int deleteByExample(DepartmentExample example);

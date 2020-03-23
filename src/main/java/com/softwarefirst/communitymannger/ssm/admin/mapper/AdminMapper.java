@@ -3,8 +3,10 @@ package com.softwarefirst.communitymannger.ssm.admin.mapper;
 import com.softwarefirst.communitymannger.ssm.admin.model.Admin;
 import com.softwarefirst.communitymannger.ssm.admin.model.AdminExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface AdminMapper {
     long countByExample(AdminExample example);
 
