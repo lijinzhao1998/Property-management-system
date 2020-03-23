@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softwarefirst.communitymannger.ssm.admin.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.softwarefirst.communitymannger.ssm.admin.model.Admin">
+    <id column="adm_number" jdbcType="VARCHAR" property="admNumber" />
+    <result column="adm_password" jdbcType="VARCHAR" property="admPassword" />
+    <result column="adm_username" jdbcType="CHAR" property="admUsername" />
+    <result column="adm_vname" jdbcType="CHAR" property="admVname" />
+    <result column="adm_jobnumber" jdbcType="VARCHAR" property="admJobnumber" />
+    <result column="adm_realname" jdbcType="CHAR" property="admRealname" />
+    <result column="adm_sex" jdbcType="VARCHAR" property="admSex" />
+    <result column="adm_phone" jdbcType="VARCHAR" property="admPhone" />
+    <result column="adm_login" jdbcType="VARCHAR" property="admLogin" />
+    <result column="adm_logintime" jdbcType="DATE" property="admLogintime" />
+    <result column="adm_update" jdbcType="VARCHAR" property="admUpdate" />
+    <result column="adm_updatetime" jdbcType="DATE" property="admUpdatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    adm_number, adm_password, adm_username, adm_vname, adm_jobnumber, adm_realname, adm_sex, 
+    adm_phone, adm_login, adm_logintime, adm_update, adm_updatetime
+  </sql>
+  <select id="selectByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.AdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where adm_number = #{admNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from admin
+    where adm_number = #{admNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.AdminExample">
+    delete from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Admin">
+    insert into admin (adm_number, adm_password, adm_username, 
+      adm_vname, adm_jobnumber, adm_realname, 
+      adm_sex, adm_phone, adm_login, 
+      adm_logintime, adm_update, adm_updatetime
+      )
+    values (#{admNumber,jdbcType=VARCHAR}, #{admPassword,jdbcType=VARCHAR}, #{admUsername,jdbcType=CHAR}, 
+      #{admVname,jdbcType=CHAR}, #{admJobnumber,jdbcType=VARCHAR}, #{admRealname,jdbcType=CHAR}, 
+      #{admSex,jdbcType=VARCHAR}, #{admPhone,jdbcType=VARCHAR}, #{admLogin,jdbcType=VARCHAR}, 
+      #{admLogintime,jdbcType=DATE}, #{admUpdate,jdbcType=VARCHAR}, #{admUpdatetime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="admNumber != null">
+        adm_number,
+      </if>
+      <if test="admPassword != null">
+        adm_password,
+      </if>
+      <if test="admUsername != null">
+        adm_username,
+      </if>
+      <if test="admVname != null">
+        adm_vname,
+      </if>
+      <if test="admJobnumber != null">
+        adm_jobnumber,
+      </if>
+      <if test="admRealname != null">
+        adm_realname,
+      </if>
+      <if test="admSex != null">
+        adm_sex,
+      </if>
+      <if test="admPhone != null">
+        adm_phone,
+      </if>
+      <if test="admLogin != null">
+        adm_login,
+      </if>
+      <if test="admLogintime != null">
+        adm_logintime,
+      </if>
+      <if test="admUpdate != null">
+        adm_update,
+      </if>
+      <if test="admUpdatetime != null">
+        adm_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="admNumber != null">
+        #{admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="admPassword != null">
+        #{admPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="admUsername != null">
+        #{admUsername,jdbcType=CHAR},
+      </if>
+      <if test="admVname != null">
+        #{admVname,jdbcType=CHAR},
+      </if>
+      <if test="admJobnumber != null">
+        #{admJobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="admRealname != null">
+        #{admRealname,jdbcType=CHAR},
+      </if>
+      <if test="admSex != null">
+        #{admSex,jdbcType=VARCHAR},
+      </if>
+      <if test="admPhone != null">
+        #{admPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="admLogin != null">
+        #{admLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="admLogintime != null">
+        #{admLogintime,jdbcType=DATE},
+      </if>
+      <if test="admUpdate != null">
+        #{admUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="admUpdatetime != null">
+        #{admUpdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.AdminExample" resultType="java.lang.Long">
+    select count(*) from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update admin
+    <set>
+      <if test="record.admNumber != null">
+        adm_number = #{record.admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admPassword != null">
+        adm_password = #{record.admPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admUsername != null">
+        adm_username = #{record.admUsername,jdbcType=CHAR},
+      </if>
+      <if test="record.admVname != null">
+        adm_vname = #{record.admVname,jdbcType=CHAR},
+      </if>
+      <if test="record.admJobnumber != null">
+        adm_jobnumber = #{record.admJobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admRealname != null">
+        adm_realname = #{record.admRealname,jdbcType=CHAR},
+      </if>
+      <if test="record.admSex != null">
+        adm_sex = #{record.admSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admPhone != null">
+        adm_phone = #{record.admPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admLogin != null">
+        adm_login = #{record.admLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admLogintime != null">
+        adm_logintime = #{record.admLogintime,jdbcType=DATE},
+      </if>
+      <if test="record.admUpdate != null">
+        adm_update = #{record.admUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admUpdatetime != null">
+        adm_updatetime = #{record.admUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update admin
+    set adm_number = #{record.admNumber,jdbcType=VARCHAR},
+      adm_password = #{record.admPassword,jdbcType=VARCHAR},
+      adm_username = #{record.admUsername,jdbcType=CHAR},
+      adm_vname = #{record.admVname,jdbcType=CHAR},
+      adm_jobnumber = #{record.admJobnumber,jdbcType=VARCHAR},
+      adm_realname = #{record.admRealname,jdbcType=CHAR},
+      adm_sex = #{record.admSex,jdbcType=VARCHAR},
+      adm_phone = #{record.admPhone,jdbcType=VARCHAR},
+      adm_login = #{record.admLogin,jdbcType=VARCHAR},
+      adm_logintime = #{record.admLogintime,jdbcType=DATE},
+      adm_update = #{record.admUpdate,jdbcType=VARCHAR},
+      adm_updatetime = #{record.admUpdatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Admin">
+    update admin
+    <set>
+      <if test="admPassword != null">
+        adm_password = #{admPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="admUsername != null">
+        adm_username = #{admUsername,jdbcType=CHAR},
+      </if>
+      <if test="admVname != null">
+        adm_vname = #{admVname,jdbcType=CHAR},
+      </if>
+      <if test="admJobnumber != null">
+        adm_jobnumber = #{admJobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="admRealname != null">
+        adm_realname = #{admRealname,jdbcType=CHAR},
+      </if>
+      <if test="admSex != null">
+        adm_sex = #{admSex,jdbcType=VARCHAR},
+      </if>
+      <if test="admPhone != null">
+        adm_phone = #{admPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="admLogin != null">
+        adm_login = #{admLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="admLogintime != null">
+        adm_logintime = #{admLogintime,jdbcType=DATE},
+      </if>
+      <if test="admUpdate != null">
+        adm_update = #{admUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="admUpdatetime != null">
+        adm_updatetime = #{admUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where adm_number = #{admNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Admin">
+    update admin
+    set adm_password = #{admPassword,jdbcType=VARCHAR},
+      adm_username = #{admUsername,jdbcType=CHAR},
+      adm_vname = #{admVname,jdbcType=CHAR},
+      adm_jobnumber = #{admJobnumber,jdbcType=VARCHAR},
+      adm_realname = #{admRealname,jdbcType=CHAR},
+      adm_sex = #{admSex,jdbcType=VARCHAR},
+      adm_phone = #{admPhone,jdbcType=VARCHAR},
+      adm_login = #{admLogin,jdbcType=VARCHAR},
+      adm_logintime = #{admLogintime,jdbcType=DATE},
+      adm_update = #{admUpdate,jdbcType=VARCHAR},
+      adm_updatetime = #{admUpdatetime,jdbcType=DATE}
+    where adm_number = #{admNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

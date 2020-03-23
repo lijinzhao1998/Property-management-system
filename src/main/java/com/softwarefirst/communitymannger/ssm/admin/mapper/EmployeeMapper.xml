@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softwarefirst.communitymannger.ssm.admin.mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.softwarefirst.communitymannger.ssm.admin.model.Employee">
+    <id column="em_number" jdbcType="VARCHAR" property="emNumber" />
+    <result column="de_number" jdbcType="VARCHAR" property="deNumber" />
+    <result column="em_sex" jdbcType="CHAR" property="emSex" />
+    <result column="em_phone" jdbcType="VARCHAR" property="emPhone" />
+    <result column="em_name" jdbcType="CHAR" property="emName" />
+    <result column="em_post" jdbcType="CHAR" property="emPost" />
+    <result column="em_login" jdbcType="VARCHAR" property="emLogin" />
+    <result column="em_logintime" jdbcType="DATE" property="emLogintime" />
+    <result column="em_update" jdbcType="VARCHAR" property="emUpdate" />
+    <result column="em_updatetime" jdbcType="DATE" property="emUpdatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    em_number, de_number, em_sex, em_phone, em_name, em_post, em_login, em_logintime, 
+    em_update, em_updatetime
+  </sql>
+  <select id="selectByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.EmployeeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where em_number = #{emNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from employee
+    where em_number = #{emNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.EmployeeExample">
+    delete from employee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Employee">
+    insert into employee (em_number, de_number, em_sex, 
+      em_phone, em_name, em_post, 
+      em_login, em_logintime, em_update, 
+      em_updatetime)
+    values (#{emNumber,jdbcType=VARCHAR}, #{deNumber,jdbcType=VARCHAR}, #{emSex,jdbcType=CHAR}, 
+      #{emPhone,jdbcType=VARCHAR}, #{emName,jdbcType=CHAR}, #{emPost,jdbcType=CHAR}, 
+      #{emLogin,jdbcType=VARCHAR}, #{emLogintime,jdbcType=DATE}, #{emUpdate,jdbcType=VARCHAR}, 
+      #{emUpdatetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Employee">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emNumber != null">
+        em_number,
+      </if>
+      <if test="deNumber != null">
+        de_number,
+      </if>
+      <if test="emSex != null">
+        em_sex,
+      </if>
+      <if test="emPhone != null">
+        em_phone,
+      </if>
+      <if test="emName != null">
+        em_name,
+      </if>
+      <if test="emPost != null">
+        em_post,
+      </if>
+      <if test="emLogin != null">
+        em_login,
+      </if>
+      <if test="emLogintime != null">
+        em_logintime,
+      </if>
+      <if test="emUpdate != null">
+        em_update,
+      </if>
+      <if test="emUpdatetime != null">
+        em_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emNumber != null">
+        #{emNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deNumber != null">
+        #{deNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="emSex != null">
+        #{emSex,jdbcType=CHAR},
+      </if>
+      <if test="emPhone != null">
+        #{emPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="emName != null">
+        #{emName,jdbcType=CHAR},
+      </if>
+      <if test="emPost != null">
+        #{emPost,jdbcType=CHAR},
+      </if>
+      <if test="emLogin != null">
+        #{emLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="emLogintime != null">
+        #{emLogintime,jdbcType=DATE},
+      </if>
+      <if test="emUpdate != null">
+        #{emUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="emUpdatetime != null">
+        #{emUpdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.EmployeeExample" resultType="java.lang.Long">
+    select count(*) from employee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update employee
+    <set>
+      <if test="record.emNumber != null">
+        em_number = #{record.emNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deNumber != null">
+        de_number = #{record.deNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emSex != null">
+        em_sex = #{record.emSex,jdbcType=CHAR},
+      </if>
+      <if test="record.emPhone != null">
+        em_phone = #{record.emPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emName != null">
+        em_name = #{record.emName,jdbcType=CHAR},
+      </if>
+      <if test="record.emPost != null">
+        em_post = #{record.emPost,jdbcType=CHAR},
+      </if>
+      <if test="record.emLogin != null">
+        em_login = #{record.emLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emLogintime != null">
+        em_logintime = #{record.emLogintime,jdbcType=DATE},
+      </if>
+      <if test="record.emUpdate != null">
+        em_update = #{record.emUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emUpdatetime != null">
+        em_updatetime = #{record.emUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update employee
+    set em_number = #{record.emNumber,jdbcType=VARCHAR},
+      de_number = #{record.deNumber,jdbcType=VARCHAR},
+      em_sex = #{record.emSex,jdbcType=CHAR},
+      em_phone = #{record.emPhone,jdbcType=VARCHAR},
+      em_name = #{record.emName,jdbcType=CHAR},
+      em_post = #{record.emPost,jdbcType=CHAR},
+      em_login = #{record.emLogin,jdbcType=VARCHAR},
+      em_logintime = #{record.emLogintime,jdbcType=DATE},
+      em_update = #{record.emUpdate,jdbcType=VARCHAR},
+      em_updatetime = #{record.emUpdatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Employee">
+    update employee
+    <set>
+      <if test="deNumber != null">
+        de_number = #{deNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="emSex != null">
+        em_sex = #{emSex,jdbcType=CHAR},
+      </if>
+      <if test="emPhone != null">
+        em_phone = #{emPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="emName != null">
+        em_name = #{emName,jdbcType=CHAR},
+      </if>
+      <if test="emPost != null">
+        em_post = #{emPost,jdbcType=CHAR},
+      </if>
+      <if test="emLogin != null">
+        em_login = #{emLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="emLogintime != null">
+        em_logintime = #{emLogintime,jdbcType=DATE},
+      </if>
+      <if test="emUpdate != null">
+        em_update = #{emUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="emUpdatetime != null">
+        em_updatetime = #{emUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where em_number = #{emNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Employee">
+    update employee
+    set de_number = #{deNumber,jdbcType=VARCHAR},
+      em_sex = #{emSex,jdbcType=CHAR},
+      em_phone = #{emPhone,jdbcType=VARCHAR},
+      em_name = #{emName,jdbcType=CHAR},
+      em_post = #{emPost,jdbcType=CHAR},
+      em_login = #{emLogin,jdbcType=VARCHAR},
+      em_logintime = #{emLogintime,jdbcType=DATE},
+      em_update = #{emUpdate,jdbcType=VARCHAR},
+      em_updatetime = #{emUpdatetime,jdbcType=DATE}
+    where em_number = #{emNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

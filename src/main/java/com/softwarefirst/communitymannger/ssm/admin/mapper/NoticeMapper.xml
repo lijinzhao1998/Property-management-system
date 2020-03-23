@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softwarefirst.communitymannger.ssm.admin.mapper.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.softwarefirst.communitymannger.ssm.admin.model.Notice">
+    <id column="no_number" jdbcType="VARCHAR" property="noNumber" />
+    <result column="adm_number" jdbcType="VARCHAR" property="admNumber" />
+    <result column="no_title" jdbcType="CHAR" property="noTitle" />
+    <result column="no_details" jdbcType="CHAR" property="noDetails" />
+    <result column="no_ptime" jdbcType="DATE" property="noPtime" />
+    <result column="no_login" jdbcType="VARCHAR" property="noLogin" />
+    <result column="no_logintime" jdbcType="DATE" property="noLogintime" />
+    <result column="no_update" jdbcType="VARCHAR" property="noUpdate" />
+    <result column="no_updatetime" jdbcType="DATE" property="noUpdatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    no_number, adm_number, no_title, no_details, no_ptime, no_login, no_logintime, no_update, 
+    no_updatetime
+  </sql>
+  <select id="selectByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.NoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where no_number = #{noNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from notice
+    where no_number = #{noNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.NoticeExample">
+    delete from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Notice">
+    insert into notice (no_number, adm_number, no_title, 
+      no_details, no_ptime, no_login, 
+      no_logintime, no_update, no_updatetime
+      )
+    values (#{noNumber,jdbcType=VARCHAR}, #{admNumber,jdbcType=VARCHAR}, #{noTitle,jdbcType=CHAR}, 
+      #{noDetails,jdbcType=CHAR}, #{noPtime,jdbcType=DATE}, #{noLogin,jdbcType=VARCHAR}, 
+      #{noLogintime,jdbcType=DATE}, #{noUpdate,jdbcType=VARCHAR}, #{noUpdatetime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Notice">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noNumber != null">
+        no_number,
+      </if>
+      <if test="admNumber != null">
+        adm_number,
+      </if>
+      <if test="noTitle != null">
+        no_title,
+      </if>
+      <if test="noDetails != null">
+        no_details,
+      </if>
+      <if test="noPtime != null">
+        no_ptime,
+      </if>
+      <if test="noLogin != null">
+        no_login,
+      </if>
+      <if test="noLogintime != null">
+        no_logintime,
+      </if>
+      <if test="noUpdate != null">
+        no_update,
+      </if>
+      <if test="noUpdatetime != null">
+        no_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noNumber != null">
+        #{noNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="admNumber != null">
+        #{admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="noTitle != null">
+        #{noTitle,jdbcType=CHAR},
+      </if>
+      <if test="noDetails != null">
+        #{noDetails,jdbcType=CHAR},
+      </if>
+      <if test="noPtime != null">
+        #{noPtime,jdbcType=DATE},
+      </if>
+      <if test="noLogin != null">
+        #{noLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="noLogintime != null">
+        #{noLogintime,jdbcType=DATE},
+      </if>
+      <if test="noUpdate != null">
+        #{noUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="noUpdatetime != null">
+        #{noUpdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.NoticeExample" resultType="java.lang.Long">
+    select count(*) from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update notice
+    <set>
+      <if test="record.noNumber != null">
+        no_number = #{record.noNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admNumber != null">
+        adm_number = #{record.admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noTitle != null">
+        no_title = #{record.noTitle,jdbcType=CHAR},
+      </if>
+      <if test="record.noDetails != null">
+        no_details = #{record.noDetails,jdbcType=CHAR},
+      </if>
+      <if test="record.noPtime != null">
+        no_ptime = #{record.noPtime,jdbcType=DATE},
+      </if>
+      <if test="record.noLogin != null">
+        no_login = #{record.noLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noLogintime != null">
+        no_logintime = #{record.noLogintime,jdbcType=DATE},
+      </if>
+      <if test="record.noUpdate != null">
+        no_update = #{record.noUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noUpdatetime != null">
+        no_updatetime = #{record.noUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update notice
+    set no_number = #{record.noNumber,jdbcType=VARCHAR},
+      adm_number = #{record.admNumber,jdbcType=VARCHAR},
+      no_title = #{record.noTitle,jdbcType=CHAR},
+      no_details = #{record.noDetails,jdbcType=CHAR},
+      no_ptime = #{record.noPtime,jdbcType=DATE},
+      no_login = #{record.noLogin,jdbcType=VARCHAR},
+      no_logintime = #{record.noLogintime,jdbcType=DATE},
+      no_update = #{record.noUpdate,jdbcType=VARCHAR},
+      no_updatetime = #{record.noUpdatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Notice">
+    update notice
+    <set>
+      <if test="admNumber != null">
+        adm_number = #{admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="noTitle != null">
+        no_title = #{noTitle,jdbcType=CHAR},
+      </if>
+      <if test="noDetails != null">
+        no_details = #{noDetails,jdbcType=CHAR},
+      </if>
+      <if test="noPtime != null">
+        no_ptime = #{noPtime,jdbcType=DATE},
+      </if>
+      <if test="noLogin != null">
+        no_login = #{noLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="noLogintime != null">
+        no_logintime = #{noLogintime,jdbcType=DATE},
+      </if>
+      <if test="noUpdate != null">
+        no_update = #{noUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="noUpdatetime != null">
+        no_updatetime = #{noUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where no_number = #{noNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Notice">
+    update notice
+    set adm_number = #{admNumber,jdbcType=VARCHAR},
+      no_title = #{noTitle,jdbcType=CHAR},
+      no_details = #{noDetails,jdbcType=CHAR},
+      no_ptime = #{noPtime,jdbcType=DATE},
+      no_login = #{noLogin,jdbcType=VARCHAR},
+      no_logintime = #{noLogintime,jdbcType=DATE},
+      no_update = #{noUpdate,jdbcType=VARCHAR},
+      no_updatetime = #{noUpdatetime,jdbcType=DATE}
+    where no_number = #{noNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

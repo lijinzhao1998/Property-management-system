@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softwarefirst.communitymannger.ssm.user.mapper.OwnerMapper">
+  <resultMap id="BaseResultMap" type="com.softwarefirst.communitymannger.ssm.user.model.Owner">
+    <id column="ow_number" jdbcType="VARCHAR" property="owNumber" />
+    <result column="ow_name" jdbcType="CHAR" property="owName" />
+    <result column="ow_sex" jdbcType="CHAR" property="owSex" />
+    <result column="ow_phone" jdbcType="VARCHAR" property="owPhone" />
+    <result column="ow_login" jdbcType="VARCHAR" property="owLogin" />
+    <result column="ow_logintime" jdbcType="DATE" property="owLogintime" />
+    <result column="ow_update" jdbcType="VARCHAR" property="owUpdate" />
+    <result column="ow_updatetime" jdbcType="DATE" property="owUpdatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ow_number, ow_name, ow_sex, ow_phone, ow_login, ow_logintime, ow_update, ow_updatetime
+  </sql>
+  <select id="selectByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.OwnerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from owner
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner
+    where ow_number = #{owNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from owner
+    where ow_number = #{owNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.OwnerExample">
+    delete from owner
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Owner">
+    insert into owner (ow_number, ow_name, ow_sex, 
+      ow_phone, ow_login, ow_logintime, 
+      ow_update, ow_updatetime)
+    values (#{owNumber,jdbcType=VARCHAR}, #{owName,jdbcType=CHAR}, #{owSex,jdbcType=CHAR}, 
+      #{owPhone,jdbcType=VARCHAR}, #{owLogin,jdbcType=VARCHAR}, #{owLogintime,jdbcType=DATE}, 
+      #{owUpdate,jdbcType=VARCHAR}, #{owUpdatetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Owner">
+    insert into owner
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="owNumber != null">
+        ow_number,
+      </if>
+      <if test="owName != null">
+        ow_name,
+      </if>
+      <if test="owSex != null">
+        ow_sex,
+      </if>
+      <if test="owPhone != null">
+        ow_phone,
+      </if>
+      <if test="owLogin != null">
+        ow_login,
+      </if>
+      <if test="owLogintime != null">
+        ow_logintime,
+      </if>
+      <if test="owUpdate != null">
+        ow_update,
+      </if>
+      <if test="owUpdatetime != null">
+        ow_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="owNumber != null">
+        #{owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="owName != null">
+        #{owName,jdbcType=CHAR},
+      </if>
+      <if test="owSex != null">
+        #{owSex,jdbcType=CHAR},
+      </if>
+      <if test="owPhone != null">
+        #{owPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="owLogin != null">
+        #{owLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="owLogintime != null">
+        #{owLogintime,jdbcType=DATE},
+      </if>
+      <if test="owUpdate != null">
+        #{owUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="owUpdatetime != null">
+        #{owUpdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.OwnerExample" resultType="java.lang.Long">
+    select count(*) from owner
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update owner
+    <set>
+      <if test="record.owNumber != null">
+        ow_number = #{record.owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owName != null">
+        ow_name = #{record.owName,jdbcType=CHAR},
+      </if>
+      <if test="record.owSex != null">
+        ow_sex = #{record.owSex,jdbcType=CHAR},
+      </if>
+      <if test="record.owPhone != null">
+        ow_phone = #{record.owPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owLogin != null">
+        ow_login = #{record.owLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owLogintime != null">
+        ow_logintime = #{record.owLogintime,jdbcType=DATE},
+      </if>
+      <if test="record.owUpdate != null">
+        ow_update = #{record.owUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owUpdatetime != null">
+        ow_updatetime = #{record.owUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update owner
+    set ow_number = #{record.owNumber,jdbcType=VARCHAR},
+      ow_name = #{record.owName,jdbcType=CHAR},
+      ow_sex = #{record.owSex,jdbcType=CHAR},
+      ow_phone = #{record.owPhone,jdbcType=VARCHAR},
+      ow_login = #{record.owLogin,jdbcType=VARCHAR},
+      ow_logintime = #{record.owLogintime,jdbcType=DATE},
+      ow_update = #{record.owUpdate,jdbcType=VARCHAR},
+      ow_updatetime = #{record.owUpdatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Owner">
+    update owner
+    <set>
+      <if test="owName != null">
+        ow_name = #{owName,jdbcType=CHAR},
+      </if>
+      <if test="owSex != null">
+        ow_sex = #{owSex,jdbcType=CHAR},
+      </if>
+      <if test="owPhone != null">
+        ow_phone = #{owPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="owLogin != null">
+        ow_login = #{owLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="owLogintime != null">
+        ow_logintime = #{owLogintime,jdbcType=DATE},
+      </if>
+      <if test="owUpdate != null">
+        ow_update = #{owUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="owUpdatetime != null">
+        ow_updatetime = #{owUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where ow_number = #{owNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Owner">
+    update owner
+    set ow_name = #{owName,jdbcType=CHAR},
+      ow_sex = #{owSex,jdbcType=CHAR},
+      ow_phone = #{owPhone,jdbcType=VARCHAR},
+      ow_login = #{owLogin,jdbcType=VARCHAR},
+      ow_logintime = #{owLogintime,jdbcType=DATE},
+      ow_update = #{owUpdate,jdbcType=VARCHAR},
+      ow_updatetime = #{owUpdatetime,jdbcType=DATE}
+    where ow_number = #{owNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

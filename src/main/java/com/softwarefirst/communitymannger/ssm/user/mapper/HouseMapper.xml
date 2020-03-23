@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softwarefirst.communitymannger.ssm.user.mapper.HouseMapper">
+  <resultMap id="BaseResultMap" type="com.softwarefirst.communitymannger.ssm.user.model.House">
+    <id column="ho_number" jdbcType="VARCHAR" property="hoNumber" />
+    <result column="ow_number" jdbcType="VARCHAR" property="owNumber" />
+    <result column="ho_cell" jdbcType="VARCHAR" property="hoCell" />
+    <result column="ho_level" jdbcType="VARCHAR" property="hoLevel" />
+    <result column="ho_area" jdbcType="VARCHAR" property="hoArea" />
+    <result column="ho_price" jdbcType="VARCHAR" property="hoPrice" />
+    <result column="ho_state" jdbcType="VARCHAR" property="hoState" />
+    <result column="ho_login" jdbcType="VARCHAR" property="hoLogin" />
+    <result column="ho_logintime" jdbcType="DATE" property="hoLogintime" />
+    <result column="ho_update" jdbcType="VARCHAR" property="hoUpdate" />
+    <result column="ho_updatetime" jdbcType="DATE" property="hoUpdatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ho_number, ow_number, ho_cell, ho_level, ho_area, ho_price, ho_state, ho_login, ho_logintime, 
+    ho_update, ho_updatetime
+  </sql>
+  <select id="selectByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.HouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from house
+    where ho_number = #{hoNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from house
+    where ho_number = #{hoNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.HouseExample">
+    delete from house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softwarefirst.communitymannger.ssm.user.model.House">
+    insert into house (ho_number, ow_number, ho_cell, 
+      ho_level, ho_area, ho_price, 
+      ho_state, ho_login, ho_logintime, 
+      ho_update, ho_updatetime)
+    values (#{hoNumber,jdbcType=VARCHAR}, #{owNumber,jdbcType=VARCHAR}, #{hoCell,jdbcType=VARCHAR}, 
+      #{hoLevel,jdbcType=VARCHAR}, #{hoArea,jdbcType=VARCHAR}, #{hoPrice,jdbcType=VARCHAR}, 
+      #{hoState,jdbcType=VARCHAR}, #{hoLogin,jdbcType=VARCHAR}, #{hoLogintime,jdbcType=DATE}, 
+      #{hoUpdate,jdbcType=VARCHAR}, #{hoUpdatetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softwarefirst.communitymannger.ssm.user.model.House">
+    insert into house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hoNumber != null">
+        ho_number,
+      </if>
+      <if test="owNumber != null">
+        ow_number,
+      </if>
+      <if test="hoCell != null">
+        ho_cell,
+      </if>
+      <if test="hoLevel != null">
+        ho_level,
+      </if>
+      <if test="hoArea != null">
+        ho_area,
+      </if>
+      <if test="hoPrice != null">
+        ho_price,
+      </if>
+      <if test="hoState != null">
+        ho_state,
+      </if>
+      <if test="hoLogin != null">
+        ho_login,
+      </if>
+      <if test="hoLogintime != null">
+        ho_logintime,
+      </if>
+      <if test="hoUpdate != null">
+        ho_update,
+      </if>
+      <if test="hoUpdatetime != null">
+        ho_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hoNumber != null">
+        #{hoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="owNumber != null">
+        #{owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hoCell != null">
+        #{hoCell,jdbcType=VARCHAR},
+      </if>
+      <if test="hoLevel != null">
+        #{hoLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="hoArea != null">
+        #{hoArea,jdbcType=VARCHAR},
+      </if>
+      <if test="hoPrice != null">
+        #{hoPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="hoState != null">
+        #{hoState,jdbcType=VARCHAR},
+      </if>
+      <if test="hoLogin != null">
+        #{hoLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="hoLogintime != null">
+        #{hoLogintime,jdbcType=DATE},
+      </if>
+      <if test="hoUpdate != null">
+        #{hoUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="hoUpdatetime != null">
+        #{hoUpdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.HouseExample" resultType="java.lang.Long">
+    select count(*) from house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update house
+    <set>
+      <if test="record.hoNumber != null">
+        ho_number = #{record.hoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owNumber != null">
+        ow_number = #{record.owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoCell != null">
+        ho_cell = #{record.hoCell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoLevel != null">
+        ho_level = #{record.hoLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoArea != null">
+        ho_area = #{record.hoArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoPrice != null">
+        ho_price = #{record.hoPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoState != null">
+        ho_state = #{record.hoState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoLogin != null">
+        ho_login = #{record.hoLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoLogintime != null">
+        ho_logintime = #{record.hoLogintime,jdbcType=DATE},
+      </if>
+      <if test="record.hoUpdate != null">
+        ho_update = #{record.hoUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hoUpdatetime != null">
+        ho_updatetime = #{record.hoUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update house
+    set ho_number = #{record.hoNumber,jdbcType=VARCHAR},
+      ow_number = #{record.owNumber,jdbcType=VARCHAR},
+      ho_cell = #{record.hoCell,jdbcType=VARCHAR},
+      ho_level = #{record.hoLevel,jdbcType=VARCHAR},
+      ho_area = #{record.hoArea,jdbcType=VARCHAR},
+      ho_price = #{record.hoPrice,jdbcType=VARCHAR},
+      ho_state = #{record.hoState,jdbcType=VARCHAR},
+      ho_login = #{record.hoLogin,jdbcType=VARCHAR},
+      ho_logintime = #{record.hoLogintime,jdbcType=DATE},
+      ho_update = #{record.hoUpdate,jdbcType=VARCHAR},
+      ho_updatetime = #{record.hoUpdatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softwarefirst.communitymannger.ssm.user.model.House">
+    update house
+    <set>
+      <if test="owNumber != null">
+        ow_number = #{owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hoCell != null">
+        ho_cell = #{hoCell,jdbcType=VARCHAR},
+      </if>
+      <if test="hoLevel != null">
+        ho_level = #{hoLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="hoArea != null">
+        ho_area = #{hoArea,jdbcType=VARCHAR},
+      </if>
+      <if test="hoPrice != null">
+        ho_price = #{hoPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="hoState != null">
+        ho_state = #{hoState,jdbcType=VARCHAR},
+      </if>
+      <if test="hoLogin != null">
+        ho_login = #{hoLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="hoLogintime != null">
+        ho_logintime = #{hoLogintime,jdbcType=DATE},
+      </if>
+      <if test="hoUpdate != null">
+        ho_update = #{hoUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="hoUpdatetime != null">
+        ho_updatetime = #{hoUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where ho_number = #{hoNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softwarefirst.communitymannger.ssm.user.model.House">
+    update house
+    set ow_number = #{owNumber,jdbcType=VARCHAR},
+      ho_cell = #{hoCell,jdbcType=VARCHAR},
+      ho_level = #{hoLevel,jdbcType=VARCHAR},
+      ho_area = #{hoArea,jdbcType=VARCHAR},
+      ho_price = #{hoPrice,jdbcType=VARCHAR},
+      ho_state = #{hoState,jdbcType=VARCHAR},
+      ho_login = #{hoLogin,jdbcType=VARCHAR},
+      ho_logintime = #{hoLogintime,jdbcType=DATE},
+      ho_update = #{hoUpdate,jdbcType=VARCHAR},
+      ho_updatetime = #{hoUpdatetime,jdbcType=DATE}
+    where ho_number = #{hoNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

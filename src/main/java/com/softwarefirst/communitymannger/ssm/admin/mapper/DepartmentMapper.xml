@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softwarefirst.communitymannger.ssm.admin.mapper.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.softwarefirst.communitymannger.ssm.admin.model.Department">
+    <id column="de_number" jdbcType="VARCHAR" property="deNumber" />
+    <result column="adm_number" jdbcType="VARCHAR" property="admNumber" />
+    <result column="de_name" jdbcType="CHAR" property="deName" />
+    <result column="de_phone" jdbcType="VARCHAR" property="dePhone" />
+    <result column="de_login" jdbcType="VARCHAR" property="deLogin" />
+    <result column="de_logintime" jdbcType="DATE" property="deLogintime" />
+    <result column="de_update" jdbcType="VARCHAR" property="deUpdate" />
+    <result column="de_updatetime" jdbcType="DATE" property="deUpdatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    de_number, adm_number, de_name, de_phone, de_login, de_logintime, de_update, de_updatetime
+  </sql>
+  <select id="selectByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.DepartmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from department
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where de_number = #{deNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from department
+    where de_number = #{deNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.DepartmentExample">
+    delete from department
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Department">
+    insert into department (de_number, adm_number, de_name, 
+      de_phone, de_login, de_logintime, 
+      de_update, de_updatetime)
+    values (#{deNumber,jdbcType=VARCHAR}, #{admNumber,jdbcType=VARCHAR}, #{deName,jdbcType=CHAR}, 
+      #{dePhone,jdbcType=VARCHAR}, #{deLogin,jdbcType=VARCHAR}, #{deLogintime,jdbcType=DATE}, 
+      #{deUpdate,jdbcType=VARCHAR}, #{deUpdatetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Department">
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deNumber != null">
+        de_number,
+      </if>
+      <if test="admNumber != null">
+        adm_number,
+      </if>
+      <if test="deName != null">
+        de_name,
+      </if>
+      <if test="dePhone != null">
+        de_phone,
+      </if>
+      <if test="deLogin != null">
+        de_login,
+      </if>
+      <if test="deLogintime != null">
+        de_logintime,
+      </if>
+      <if test="deUpdate != null">
+        de_update,
+      </if>
+      <if test="deUpdatetime != null">
+        de_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deNumber != null">
+        #{deNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="admNumber != null">
+        #{admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deName != null">
+        #{deName,jdbcType=CHAR},
+      </if>
+      <if test="dePhone != null">
+        #{dePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="deLogin != null">
+        #{deLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="deLogintime != null">
+        #{deLogintime,jdbcType=DATE},
+      </if>
+      <if test="deUpdate != null">
+        #{deUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="deUpdatetime != null">
+        #{deUpdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.DepartmentExample" resultType="java.lang.Long">
+    select count(*) from department
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update department
+    <set>
+      <if test="record.deNumber != null">
+        de_number = #{record.deNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admNumber != null">
+        adm_number = #{record.admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deName != null">
+        de_name = #{record.deName,jdbcType=CHAR},
+      </if>
+      <if test="record.dePhone != null">
+        de_phone = #{record.dePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deLogin != null">
+        de_login = #{record.deLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deLogintime != null">
+        de_logintime = #{record.deLogintime,jdbcType=DATE},
+      </if>
+      <if test="record.deUpdate != null">
+        de_update = #{record.deUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deUpdatetime != null">
+        de_updatetime = #{record.deUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update department
+    set de_number = #{record.deNumber,jdbcType=VARCHAR},
+      adm_number = #{record.admNumber,jdbcType=VARCHAR},
+      de_name = #{record.deName,jdbcType=CHAR},
+      de_phone = #{record.dePhone,jdbcType=VARCHAR},
+      de_login = #{record.deLogin,jdbcType=VARCHAR},
+      de_logintime = #{record.deLogintime,jdbcType=DATE},
+      de_update = #{record.deUpdate,jdbcType=VARCHAR},
+      de_updatetime = #{record.deUpdatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Department">
+    update department
+    <set>
+      <if test="admNumber != null">
+        adm_number = #{admNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deName != null">
+        de_name = #{deName,jdbcType=CHAR},
+      </if>
+      <if test="dePhone != null">
+        de_phone = #{dePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="deLogin != null">
+        de_login = #{deLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="deLogintime != null">
+        de_logintime = #{deLogintime,jdbcType=DATE},
+      </if>
+      <if test="deUpdate != null">
+        de_update = #{deUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="deUpdatetime != null">
+        de_updatetime = #{deUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where de_number = #{deNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softwarefirst.communitymannger.ssm.admin.model.Department">
+    update department
+    set adm_number = #{admNumber,jdbcType=VARCHAR},
+      de_name = #{deName,jdbcType=CHAR},
+      de_phone = #{dePhone,jdbcType=VARCHAR},
+      de_login = #{deLogin,jdbcType=VARCHAR},
+      de_logintime = #{deLogintime,jdbcType=DATE},
+      de_update = #{deUpdate,jdbcType=VARCHAR},
+      de_updatetime = #{deUpdatetime,jdbcType=DATE}
+    where de_number = #{deNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

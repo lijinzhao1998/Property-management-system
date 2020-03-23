@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softwarefirst.communitymannger.ssm.user.mapper.ExpenseMapper">
+  <resultMap id="BaseResultMap" type="com.softwarefirst.communitymannger.ssm.user.model.Expense">
+    <id column="ex_number" jdbcType="VARCHAR" property="exNumber" />
+    <result column="ow_number" jdbcType="VARCHAR" property="owNumber" />
+    <result column="em_number" jdbcType="VARCHAR" property="emNumber" />
+    <result column="ex_cost" jdbcType="VARCHAR" property="exCost" />
+    <result column="ex_type" jdbcType="VARCHAR" property="exType" />
+    <result column="ex_details" jdbcType="DATE" property="exDetails" />
+    <result column="ex_pay" jdbcType="VARCHAR" property="exPay" />
+    <result column="ex_state" jdbcType="VARCHAR" property="exState" />
+    <result column="ex_login" jdbcType="VARCHAR" property="exLogin" />
+    <result column="ex_logintime" jdbcType="DATE" property="exLogintime" />
+    <result column="ex_update" jdbcType="VARCHAR" property="exUpdate" />
+    <result column="ex_updatetime" jdbcType="DATE" property="exUpdatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ex_number, ow_number, em_number, ex_cost, ex_type, ex_details, ex_pay, ex_state, 
+    ex_login, ex_logintime, ex_update, ex_updatetime
+  </sql>
+  <select id="selectByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.ExpenseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from expense
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from expense
+    where ex_number = #{exNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from expense
+    where ex_number = #{exNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.ExpenseExample">
+    delete from expense
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Expense">
+    insert into expense (ex_number, ow_number, em_number, 
+      ex_cost, ex_type, ex_details, 
+      ex_pay, ex_state, ex_login, 
+      ex_logintime, ex_update, ex_updatetime
+      )
+    values (#{exNumber,jdbcType=VARCHAR}, #{owNumber,jdbcType=VARCHAR}, #{emNumber,jdbcType=VARCHAR}, 
+      #{exCost,jdbcType=VARCHAR}, #{exType,jdbcType=VARCHAR}, #{exDetails,jdbcType=DATE}, 
+      #{exPay,jdbcType=VARCHAR}, #{exState,jdbcType=VARCHAR}, #{exLogin,jdbcType=VARCHAR}, 
+      #{exLogintime,jdbcType=DATE}, #{exUpdate,jdbcType=VARCHAR}, #{exUpdatetime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Expense">
+    insert into expense
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="exNumber != null">
+        ex_number,
+      </if>
+      <if test="owNumber != null">
+        ow_number,
+      </if>
+      <if test="emNumber != null">
+        em_number,
+      </if>
+      <if test="exCost != null">
+        ex_cost,
+      </if>
+      <if test="exType != null">
+        ex_type,
+      </if>
+      <if test="exDetails != null">
+        ex_details,
+      </if>
+      <if test="exPay != null">
+        ex_pay,
+      </if>
+      <if test="exState != null">
+        ex_state,
+      </if>
+      <if test="exLogin != null">
+        ex_login,
+      </if>
+      <if test="exLogintime != null">
+        ex_logintime,
+      </if>
+      <if test="exUpdate != null">
+        ex_update,
+      </if>
+      <if test="exUpdatetime != null">
+        ex_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="exNumber != null">
+        #{exNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="owNumber != null">
+        #{owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="emNumber != null">
+        #{emNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exCost != null">
+        #{exCost,jdbcType=VARCHAR},
+      </if>
+      <if test="exType != null">
+        #{exType,jdbcType=VARCHAR},
+      </if>
+      <if test="exDetails != null">
+        #{exDetails,jdbcType=DATE},
+      </if>
+      <if test="exPay != null">
+        #{exPay,jdbcType=VARCHAR},
+      </if>
+      <if test="exState != null">
+        #{exState,jdbcType=VARCHAR},
+      </if>
+      <if test="exLogin != null">
+        #{exLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="exLogintime != null">
+        #{exLogintime,jdbcType=DATE},
+      </if>
+      <if test="exUpdate != null">
+        #{exUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="exUpdatetime != null">
+        #{exUpdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softwarefirst.communitymannger.ssm.user.model.ExpenseExample" resultType="java.lang.Long">
+    select count(*) from expense
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update expense
+    <set>
+      <if test="record.exNumber != null">
+        ex_number = #{record.exNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owNumber != null">
+        ow_number = #{record.owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emNumber != null">
+        em_number = #{record.emNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exCost != null">
+        ex_cost = #{record.exCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exType != null">
+        ex_type = #{record.exType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exDetails != null">
+        ex_details = #{record.exDetails,jdbcType=DATE},
+      </if>
+      <if test="record.exPay != null">
+        ex_pay = #{record.exPay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exState != null">
+        ex_state = #{record.exState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exLogin != null">
+        ex_login = #{record.exLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exLogintime != null">
+        ex_logintime = #{record.exLogintime,jdbcType=DATE},
+      </if>
+      <if test="record.exUpdate != null">
+        ex_update = #{record.exUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exUpdatetime != null">
+        ex_updatetime = #{record.exUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update expense
+    set ex_number = #{record.exNumber,jdbcType=VARCHAR},
+      ow_number = #{record.owNumber,jdbcType=VARCHAR},
+      em_number = #{record.emNumber,jdbcType=VARCHAR},
+      ex_cost = #{record.exCost,jdbcType=VARCHAR},
+      ex_type = #{record.exType,jdbcType=VARCHAR},
+      ex_details = #{record.exDetails,jdbcType=DATE},
+      ex_pay = #{record.exPay,jdbcType=VARCHAR},
+      ex_state = #{record.exState,jdbcType=VARCHAR},
+      ex_login = #{record.exLogin,jdbcType=VARCHAR},
+      ex_logintime = #{record.exLogintime,jdbcType=DATE},
+      ex_update = #{record.exUpdate,jdbcType=VARCHAR},
+      ex_updatetime = #{record.exUpdatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Expense">
+    update expense
+    <set>
+      <if test="owNumber != null">
+        ow_number = #{owNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="emNumber != null">
+        em_number = #{emNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exCost != null">
+        ex_cost = #{exCost,jdbcType=VARCHAR},
+      </if>
+      <if test="exType != null">
+        ex_type = #{exType,jdbcType=VARCHAR},
+      </if>
+      <if test="exDetails != null">
+        ex_details = #{exDetails,jdbcType=DATE},
+      </if>
+      <if test="exPay != null">
+        ex_pay = #{exPay,jdbcType=VARCHAR},
+      </if>
+      <if test="exState != null">
+        ex_state = #{exState,jdbcType=VARCHAR},
+      </if>
+      <if test="exLogin != null">
+        ex_login = #{exLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="exLogintime != null">
+        ex_logintime = #{exLogintime,jdbcType=DATE},
+      </if>
+      <if test="exUpdate != null">
+        ex_update = #{exUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="exUpdatetime != null">
+        ex_updatetime = #{exUpdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where ex_number = #{exNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softwarefirst.communitymannger.ssm.user.model.Expense">
+    update expense
+    set ow_number = #{owNumber,jdbcType=VARCHAR},
+      em_number = #{emNumber,jdbcType=VARCHAR},
+      ex_cost = #{exCost,jdbcType=VARCHAR},
+      ex_type = #{exType,jdbcType=VARCHAR},
+      ex_details = #{exDetails,jdbcType=DATE},
+      ex_pay = #{exPay,jdbcType=VARCHAR},
+      ex_state = #{exState,jdbcType=VARCHAR},
+      ex_login = #{exLogin,jdbcType=VARCHAR},
+      ex_logintime = #{exLogintime,jdbcType=DATE},
+      ex_update = #{exUpdate,jdbcType=VARCHAR},
+      ex_updatetime = #{exUpdatetime,jdbcType=DATE}
+    where ex_number = #{exNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>
